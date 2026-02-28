@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probabilidad y Estadistica</title>
+
+    <link rel="stylesheet" href="./styles/styles.css">
+
+    <!-- Tesseract.js v5 -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+    <!-- PDF.js -->
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+
+    <!-- Chart.js  -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="./">MOISES MORENO CORTEZ</a></li>
+                <li><a href="#recibos">RECIBOS</a></li>
+                <li><a href="#calculos">CALCULOS</a></li>
+
+            </ul>
+        </nav>
+        <div class="presentacion">
+            <H1>BIENVENIDOS</H1>
+            <h3>PROBABILIDAD Y ESTADISTICA</h3>
+        </div>
+    </header>
+
+    <main>
+        <section id="recibos" class="section_1">
+            <!-- Header con titulo y boton agregar -->
+            <div class="seccion_header">
+                <h2>RECIBOS</h2>
+                <button type="button" id="btn_agregar">
+                    <img class="icono_agregar" src="images/add.png" alt="agregar">
+                    <p>Agregar Recibo</p>
+                </button>
+            </div>
+
+            <!-- Barra de info: total de recibos + borrar todos -->
+            <div id="barra_recibos" class="barra_recibos" style="display:none;">
+                <span id="total_recibos"></span>
+                <button type="button" id="btn_borrar_todos" class="btn_borrar_todos">Borrar todos</button>
+            </div>
+
+            <!-- Aqui se renderizan las tarjetas de recibos -->
+            <div id="contenedor_recibos" class="contenedor_recibos"></div>
+        </section>
+
+        <section id="calculos" class="section_calculos">
+            <div class="seccion_header">
+                <h2>CALCULOS</h2>
+            </div>
+
+            <div class="calculos_botones">
+                <button type="button" class="btn_calculo" id="btn_calc_media">
+                    Calcular Media
+                </button>
+                <button type="button" class="btn_calculo" id="btn_calc_varianza">
+                    Calcular Varianza
+                </button>
+            </div>
+
+            <!-- Panel resultado Media -->
+            <div id="panel_media" class="resultado_panel" style="display:none;">
+                <h3>MEDIA (PROMEDIO)</h3>
+                <p class="resultado_formula" id="formula_media"></p>
+                <p class="resultado_valor" id="valor_media"></p>
+                <div class="resultado_grafico">
+                    <canvas id="chart_media"></canvas>
+                </div>
+            </div>
+
+            <!-- Panel resultado Varianza -->
+            <div id="panel_varianza" class="resultado_panel" style="display:none;">
+                <h3>VARIANZA</h3>
+                <p class="resultado_formula" id="formula_varianza"></p>
+                <p class="resultado_valor" id="valor_varianza"></p>
+                <div class="resultado_grafico">
+                    <canvas id="chart_varianza"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal para subir recibo -->
+        <div id="modal_upload" class="modal" style="display:none;">
+            <div class="modal_contenido">
+                <h2>AGREGAR RECIBO</h2>
+
+                <!-- Paso 1: Elegir tipo de archivo -->
+                <div id="selector_tipo" class="selector_tipo">
+                    <p>Selecciona el tipo de archivo:</p>
+                    <div class="tipo_botones">
+                        <button type="button" class="btn_tipo" id="btn_tipo_imagen">
+                            Imagenes
+                        </button>
+                        <button type="button" class="btn_tipo" id="btn_tipo_pdf">
+                            PDF
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Paso 2a: Subir imagenes -->
+                <div id="campos_imagen" style="display:none;">
+                    <div id="drop_frente" class="zona_drop">
+                        <p>Arrastra la imagen del frente aqui</p>
+                        <p class="drop_alt">o selecciona un archivo</p>
+                        <input type="file" id="imagen_frente" accept="image/*">
+                    </div>
+
+                    <div id="drop_reverso" class="zona_drop">
+                        <p>Arrastra la imagen del reverso aqui</p>
+                        <p class="drop_alt">o selecciona un archivo (opcional)</p>
+                        <input type="file" id="imagen_reverso" accept="image/*">
+                    </div>
+                </div>
+
+                <!-- Paso 2b: Subir PDF -->
+                <div id="campos_pdf" style="display:none;">
+                    <div id="drop_pdf" class="zona_drop">
+                        <p>Arrastra tus PDFs aqui</p>
+                        <p class="drop_alt">o selecciona archivos</p>
+                        <input type="file" id="archivo_pdf" accept="application/pdf" multiple>
+                    </div>
+                    <p id="pdf_contador" class="pdf_contador"></p>
+                </div>
+
+                <!-- Barra de progreso del OCR -->
+                <div id="ocr_progreso" style="display:none;">
+                    <p id="ocr_mensaje">Procesando...</p>
+                    <div class="barra_progreso">
+                        <div id="barra_llenado" class="barra_llenado"></div>
+                    </div>
+                </div>
+
+                <div class="modal_botones">
+                    <button type="button" id="btn_procesar" style="display:none;">
+                        <p>Procesar Recibo</p>
+                    </button>
+                    <button type="button" id="btn_cancelar">
+                        <p>Cancelar</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para ver todos los recibos -->
+        <div id="modal_todos" class="modal" style="display:none;">
+            <div class="modal_todos_contenido">
+                <div class="modal_todos_header">
+                    <h2>TODOS LOS RECIBOS</h2>
+                    <button type="button" id="btn_cerrar_todos">Cerrar</button>
+                </div>
+                <div id="contenedor_todos" class="contenedor_todos"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./js/app.js"></script>
+</body>
+
+</html>

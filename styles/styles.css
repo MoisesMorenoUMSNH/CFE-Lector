@@ -1,0 +1,610 @@
+/* ===== ESTILOS GENERALES ===== */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== BOTONES ===== */
+button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #d6eeff;
+    color: #061b26;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    padding: 5px 20px;
+    border-radius: 20px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #91d9ff;
+}
+
+button img {
+    width: 20px;
+    height: 20px;
+}
+
+/* ===== BARRA DE NAVEGACION ===== */
+header nav ul {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 10px;
+    margin: 0;
+    background-color: #d6eefd;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: #061b26;
+    background-color: #adcfe5;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 5px 15px;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+header ul li a:hover {
+    background-color: #91d9ff;
+}
+
+/* ===== SECCION DE PRESENTACION ===== */
+header div.presentacion {
+    background-color: #061b26;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    height: 100dvh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== SECCION DE RECIBOS ===== */
+.section_1 {
+    min-height: 100dvh;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background-color: #d6eefd;
+    color: #061b26;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.section_1 .seccion_header {
+    background-color: #061b26;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 30px;
+    margin: 0 50px;
+    border-radius: 40px;
+}
+
+.section_1 .seccion_header h2 {
+    font-size: 30px;
+}
+
+/* ===== BARRA DE INFO DE RECIBOS ===== */
+.barra_recibos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 50px 0;
+    padding: 10px 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: bold;
+    color: #061b26;
+}
+
+.btn_borrar_todos {
+    background-color: #ff6b6b;
+    color: #fff;
+    font-size: 11px;
+    padding: 5px 15px;
+}
+
+.btn_borrar_todos:hover {
+    background-color: #ee5a5a;
+}
+
+/* ===== CONTENEDOR DE TARJETAS DE RECIBOS ===== */
+.contenedor_recibos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px 50px;
+}
+
+/* ===== TARJETA INDIVIDUAL DE RECIBO ===== */
+.tarjeta_recibo {
+    background-color: #061b26;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 30px;
+    padding: 20px 30px;
+    transition: padding 0.3s;
+}
+
+.tarjeta_recibo h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Header de tarjeta: siempre visible, clickeable */
+.tarjeta_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+}
+
+/* Resumen colapsado: flecha + periodo + total */
+.tarjeta_resumen {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    min-width: 0;
+}
+
+.tarjeta_flecha {
+    font-size: 14px;
+    color: #91d9ff;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+}
+
+.tarjeta_recibo.expandida .tarjeta_flecha {
+    transform: rotate(90deg);
+}
+
+.tarjeta_total {
+    font-size: 20px;
+    font-weight: bold;
+    color: #91d9ff;
+    white-space: nowrap;
+}
+
+/* Contenido desplegable */
+.tarjeta_contenido {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.tarjeta_recibo.expandida .tarjeta_contenido {
+    max-height: 2000px;
+}
+
+.tarjeta_recibo.expandida {
+    padding: 30px;
+}
+
+/* Datos del beneficiario (nombre, direccion, no. servicio) */
+.datos_beneficiario {
+    background-color: #0d2e3f;
+    padding: 12px 15px;
+    border-radius: 15px;
+    margin: 10px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #adcfe5;
+}
+
+.datos_beneficiario p {
+    margin: 0;
+}
+
+.datos_beneficiario strong {
+    color: #fff;
+    font-size: 14px;
+}
+
+/* Grid de datos clave (total, kWh, precio, lectura) */
+.datos_clave {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.dato_item {
+    background-color: #0d2e3f;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.dato_etiqueta {
+    font-size: 11px;
+    color: #adcfe5;
+    margin-bottom: 5px;
+}
+
+.dato_valor {
+    font-size: 20px;
+    font-weight: bold;
+    color: #91d9ff;
+}
+
+/* ===== TABLA DE CONSUMO HISTORICO ===== */
+.tabla_historico {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 15px 0;
+}
+
+.tabla_historico th {
+    background-color: #adcfe5;
+    color: #061b26;
+    padding: 8px;
+    text-align: left;
+}
+
+.tabla_historico td {
+    padding: 6px 8px;
+    border-bottom: 1px solid #0d2e3f;
+}
+
+.tabla_historico tr:nth-child(even) {
+    background-color: #0a2535;
+}
+
+/* ===== CONTENEDOR DE GRAFICA ===== */
+.contenedor_grafico {
+    background-color: #0d2e3f;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 15px 0;
+    height: 250px;
+}
+
+/* ===== ESTADISTICAS ===== */
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.stat_item {
+    background-color: #d6eefd;
+    color: #061b26;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+}
+
+.stat_etiqueta {
+    font-size: 10px;
+}
+
+.stat_valor {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Boton eliminar recibo */
+.btn_eliminar {
+    background-color: #ff6b6b;
+    color: #fff;
+    font-size: 11px;
+    padding: 5px 15px;
+}
+
+.btn_eliminar:hover {
+    background-color: #ee5a5a;
+}
+
+/* ===== SELECTOR DE TIPO DE ARCHIVO ===== */
+.selector_tipo p {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.tipo_botones {
+    display: flex;
+    gap: 12px;
+}
+
+.btn_tipo {
+    flex: 1;
+    justify-content: center;
+    font-size: 14px;
+    padding: 12px 20px;
+    background-color: #0d2e3f;
+    color: #adcfe5;
+    border: 2px solid #adcfe5;
+}
+
+.btn_tipo:hover {
+    background-color: #1a4560;
+    color: #fff;
+}
+
+.btn_tipo.activo {
+    background-color: #91d9ff;
+    color: #061b26;
+    border-color: #91d9ff;
+    font-weight: bold;
+}
+
+/* ===== ZONAS DE DRAG & DROP ===== */
+.zona_drop {
+    border: 2px dashed #adcfe5;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 10px 0;
+    background-color: #0d2e3f;
+}
+
+.zona_drop:hover {
+    border-color: #91d9ff;
+    background-color: #1a4560;
+}
+
+.zona_drop.dragover {
+    border-color: #91d9ff;
+    background-color: #1a4560;
+    box-shadow: 0 0 15px rgba(145, 217, 255, 0.3);
+}
+
+.zona_drop.tiene_archivo {
+    border-color: #6bffb8;
+    background-color: #0d3f2e;
+}
+
+.zona_drop p {
+    margin: 5px 0;
+    color: #adcfe5;
+    font-size: 13px;
+}
+
+.zona_drop .drop_alt {
+    font-size: 11px;
+    color: #6a9ab5;
+}
+
+.zona_drop .nombre_archivo {
+    color: #91d9ff;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.zona_drop input[type="file"] {
+    display: none;
+}
+
+.pdf_contador {
+    font-size: 12px;
+    color: #91d9ff;
+    margin: 5px 0 0;
+    text-align: center;
+}
+
+/* ===== MODAL DE UPLOAD ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(6, 27, 38, 0.85);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal_contenido {
+    background-color: #061b26;
+    color: #adcfe5;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 30px;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.modal_contenido h2 {
+    margin-top: 0;
+}
+
+.modal_contenido label {
+    display: block;
+    margin: 15px 0 5px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.modal_contenido input[type="file"] {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+}
+
+.modal_botones {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* ===== BARRA DE PROGRESO ===== */
+.barra_progreso {
+    background-color: #adcfe5;
+    border-radius: 10px;
+    height: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.barra_llenado {
+    background-color: #91d9ff;
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s;
+    border-radius: 10px;
+}
+
+/* ===== BOTON VER MAS RECIBOS ===== */
+.btn_ver_mas {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 15px;
+    font-size: 14px;
+    background-color: #061b26;
+    color: #91d9ff;
+    border: 2px dashed #91d9ff;
+    border-radius: 30px;
+}
+
+.btn_ver_mas:hover {
+    background-color: #0d2e3f;
+}
+
+/* ===== MODAL TODOS LOS RECIBOS ===== */
+.modal_todos_contenido {
+    background-color: #d6eefd;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 30px;
+    width: 95%;
+    max-width: 900px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal_todos_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: #061b26;
+    color: #fff;
+    border-radius: 30px 30px 0 0;
+}
+
+.modal_todos_header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.contenedor_todos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* ===== SECCION DE CALCULOS ===== */
+.section_calculos {
+    min-height: 100dvh;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background-color: #061b26;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.section_calculos .seccion_header {
+    background-color: #d6eefd;
+    color: #061b26;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 30px;
+    margin: 0 50px;
+    border-radius: 40px;
+}
+
+.section_calculos .seccion_header h2 {
+    font-size: 30px;
+}
+
+.calculos_botones {
+    display: flex;
+    gap: 15px;
+    padding: 30px 50px;
+}
+
+.btn_calculo {
+    flex: 1;
+    justify-content: center;
+    font-size: 16px;
+    padding: 15px 25px;
+    background-color: #0d2e3f;
+    color: #91d9ff;
+    border: 2px solid #91d9ff;
+    font-weight: bold;
+}
+
+.btn_calculo:hover {
+    background-color: #1a4560;
+    color: #fff;
+}
+
+.resultado_panel {
+    background-color: #0d2e3f;
+    border-radius: 30px;
+    padding: 25px 30px;
+    margin: 0 50px 20px;
+}
+
+.resultado_panel h3 {
+    font-size: 20px;
+    color: #fff;
+    margin: 0 0 10px;
+}
+
+.resultado_formula {
+    font-size: 13px;
+    color: #adcfe5;
+    margin: 5px 0;
+    line-height: 1.8;
+}
+
+.resultado_valor {
+    font-size: 32px;
+    font-weight: bold;
+    color: #91d9ff;
+    margin: 10px 0;
+}
+
+.resultado_grafico {
+    background-color: #061b26;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 15px;
+    height: 300px;
+}
+
+/* ===== MENSAJE VACIO ===== */
+.mensaje_vacio {
+    text-align: center;
+    color: #061b26;
+    font-style: italic;
+    padding: 20px;
+}
